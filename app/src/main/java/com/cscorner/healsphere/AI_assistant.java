@@ -32,34 +32,38 @@ public class AI_assistant extends AppCompatActivity {
 
         // Bind views
         aurVideo = findViewById(R.id.aurVideo);
-        aiImage = findViewById(R.id.aiImage);
+        aiImage = findViewById(R.id.aiImage); // Still bind if needed for image visuals
 
-        // Set and play aura background video
+        // Play aura video
         Uri videoUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.aura);
         aurVideo.setVideoURI(videoUri);
         aurVideo.setOnPreparedListener(mp -> {
             mp.setLooping(true);
-            mp.setVolume(0f, 0f); // Mute video
+            mp.setVolume(0f, 0f); // mute video
             aurVideo.start();
         });
 
-        // Delay 1000ms → Move to next activity
+        // Automatically move to next screen after 1000ms
         new Handler().postDelayed(() -> {
-            Intent intent = new Intent(AI_assistant.this, AI_assistant2.class); // Replace with actual target activity
+            Intent intent = new Intent(AI_assistant.this, AI_assistant2.class);
             startActivity(intent);
-            finish(); // Optional: finish this screen
-        }, 1000);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        }, 1000); // 1000ms = 1s delay
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (aurVideo != null) aurVideo.start();
+        if (aurVideo != null && !aurVideo.isPlaying()) {
+            aurVideo.start();
+        }
     }
 
     @Override
     protected void onPause() {
-        if (aurVideo != null && aurVideo.isPlaying()) aurVideo.pause();
+        if (aurVideo != null && aurVideo.isPlaying()) {
+            aurVideo.pause();
+        }
         super.onPause();
     }
 }

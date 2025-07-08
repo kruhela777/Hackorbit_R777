@@ -15,21 +15,16 @@
         <activity
             android:name=".AI_assistant2"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".AI_assistant"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".Dashboard2"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".Dashboard1"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".SplashScreen11"
             android:exported="true" />

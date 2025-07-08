@@ -10,12 +10,15 @@
         android:id="@+id/auraVideo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
 
     <!-- 2. Gradient Rounded Rectangle Container -->
     <LinearLayout
         android:id="@+id/gradientContainer"
-        android:layout_width="300dp"
+        android:layout_width="350dp"
         android:layout_height="250dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
@@ -23,25 +26,123 @@
         android:gravity="center"
         android:background="@drawable/rounded_gradient_box">
 
-        <!-- Small Logo -->
         <ImageView
             android:id="@+id/smallLogo"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginBottom="170dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="140dp"
             android:src="@drawable/small_logo" />
 
-        <!-- Centered Text -->
         <TextView
             android:id="@+id/centerText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Effortless Conversation\nwith AI"
             android:textColor="#FFFFFF"
-            android:textSize="18sp"
+            android:textSize="24sp"
             android:gravity="center"
             android:textStyle="bold"
-            android:layout_marginTop="-170dp" />
+            android:layout_marginTop="-140dp" />
     </LinearLayout>
 
+    <!-- 3. Two Gradient Cards Side-by-Side -->
+    <LinearLayout
+        android:id="@+id/twoCardContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/gradientContainer"
+        android:layout_marginTop="60dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:weightSum="2">
+
+        <!-- First Card -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="250dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="start|center_vertical"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/card_gradient_bg_dark"
+            android:paddingStart="16dp"
+            android:paddingTop="12dp">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/reminder"
+                android:contentDescription="reminder" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Daily medicine\nreminders"
+                android:textColor="#F1FAEE"
+                android:textSize="18sp"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Keeping reminders\nfor daily\nmedicines"
+                android:textColor="#A0A0A0"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+
+        <!-- Second Card -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="250dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="end|center_vertical"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/card_gradient_bg_dark"
+            android:paddingEnd="16dp"
+            android:paddingTop="12dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/tablet"
+                android:contentDescription="Tablet" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Medical\nSuggestions"
+                android:textColor="#F1FAEE"
+                android:textSize="18sp"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"
+                android:gravity="end" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="AI will provide\nsuggestions and\ndoctor consultations"
+                android:textColor="#A0A0A0"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp"
+                android:gravity="end" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- 4. AI Big Image Overlapping All Cards -->
+    <ImageView
+        android:id="@+id/aiBigImage"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:src="@drawable/ai_big"
+        android:scaleType="centerCrop"
+        android:background="@drawable/black_circle_bg"
+        android:elevation="20dp"
+        android:translationY="-20dp" />
 </RelativeLayout>

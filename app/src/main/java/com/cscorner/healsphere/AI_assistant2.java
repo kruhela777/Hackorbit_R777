@@ -1,11 +1,8 @@
 package com.cscorner.healsphere;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.VideoView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,12 +10,11 @@ import androidx.appcompat.app.AppCompatActivity;
 public class AI_assistant2 extends AppCompatActivity {
 
     private VideoView aurVideo;
-    private ImageView aiImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ai_assistant);
+        setContentView(R.layout.activity_ai_assistant2); // ✅ Correct layout file!
 
         // Fullscreen immersive mode
         getWindow().getDecorView().setSystemUiVisibility(
@@ -30,36 +26,32 @@ public class AI_assistant2 extends AppCompatActivity {
                         View.SYSTEM_UI_FLAG_LAYOUT_STABLE
         );
 
-        // Bind views
-        aurVideo = findViewById(R.id.aurVideo);
-        aiImage = findViewById(R.id.aiImage);
+        // Bind the video view
+        aurVideo = findViewById(R.id.auraVideo);
 
         // Set and play aura background video
         Uri videoUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.aura);
         aurVideo.setVideoURI(videoUri);
         aurVideo.setOnPreparedListener(mp -> {
             mp.setLooping(true);
-            mp.setVolume(0f, 0f); // Mute video
+            mp.setVolume(0f, 0f); // mute video
             aurVideo.start();
         });
-
-//        // Delay 1000ms → Move to next activity
-//        new Handler().postDelayed(() -> {
-//            Intent intent = new Intent(AI_assistant.this, AI_assistant2.class); // Replace with actual target activity
-//            startActivity(intent);
-//            finish(); // Optional: finish this screen
-//        }, 1000);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (aurVideo != null) aurVideo.start();
+        if (aurVideo != null && !aurVideo.isPlaying()) {
+            aurVideo.start();
+        }
     }
 
     @Override
     protected void onPause() {
-        if (aurVideo != null && aurVideo.isPlaying()) aurVideo.pause();
+        if (aurVideo != null && aurVideo.isPlaying()) {
+            aurVideo.pause();
+        }
         super.onPause();
     }
 }
