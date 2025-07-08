@@ -1,10 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/symptomChecker1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AI_assistant2">
+    android:background="#000000">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- 1. Fullscreen Aura Video Background -->
+    <VideoView
+        android:id="@+id/auraVideo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
+
+    <!-- 2. Gradient Rounded Rectangle Container -->
+    <LinearLayout
+        android:id="@+id/gradientContainer"
+        android:layout_width="300dp"
+        android:layout_height="250dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/rounded_gradient_box">
+
+        <!-- Small Logo -->
+        <ImageView
+            android:id="@+id/smallLogo"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginBottom="170dp"
+            android:src="@drawable/small_logo" />
+
+        <!-- Centered Text -->
+        <TextView
+            android:id="@+id/centerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Effortless Conversation\nwith AI"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_marginTop="-170dp" />
+    </LinearLayout>
+
+</RelativeLayout>
