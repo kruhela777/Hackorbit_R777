@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/aiAssistantLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000">
+
+    <!-- Background Video -->
+    <VideoView
+        android:id="@+id/aiVideoBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <!-- Overlay Content -->
+    <LinearLayout
+        android:id="@+id/overlayContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="24dp">
+
+        <!-- Logo + App Name -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/appLogo"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/small_logo" />
+
+            <TextView
+                android:id="@+id/appName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Healsphere"
+                android:textColor="#F1FAEE"
+                android:textSize="20sp"
+                android:layout_marginStart="8dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/promptText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="What do you want\nto talk about??"
+            android:textColor="#F1FAEE"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginTop="35dp"
+            android:paddingStart="32dp"
+            android:gravity="start" />
+
+        <TextView
+            android:id="@+id/promptSubText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tell about your\nsymptoms………"
+            android:textColor="#F1FAEE"
+            android:textSize="18sp"
+            android:layout_marginTop="8dp"
+            android:paddingStart="32dp"
+            android:gravity="start" />
+
+
+
+        <ImageView
+            android:id="@+id/aiBigImage"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ai_bigger"
+            android:scaleType="centerCrop"
+            android:background="@drawable/black_circle_bg"
+            android:elevation="20dp"
+            android:layout_marginTop="50dp"/>
+
+        <!-- Use Keyboard Option -->
+        <TextView
+            android:id="@+id/useKeyboard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="⌨ Use Keyboard"
+            android:textColor="#CCCCCC"
+            android:textSize="18sp"
+            android:layout_marginTop="20dp" />
+    </LinearLayout>
+
+    <!-- Bottom Mic & Cancel -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="32dp"
+        android:paddingTop="16dp">
+
+        <ImageView
+            android:id="@+id/micButton"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/mic_icon"
+            android:backgroundTint="#000000"
+            android:padding="12dp"
+            android:layout_marginLeft="80dp"/>
+
+        <ImageView
+            android:id="@+id/cancelButton"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/cancel"
+            android:layout_marginStart="32dp" />
+    </LinearLayout>
+</RelativeLayout>

@@ -13,8 +13,18 @@
         android:theme="@style/Theme.HealSphere"
         tools:targetApi="31">
         <activity
+            android:name=".AI_assistant4"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".AI_assistant3"
+            android:exported="true">
+
+        </activity>
+        <activity
             android:name=".AI_assistant2"
             android:exported="true">
+
         </activity>
         <activity
             android:name=".AI_assistant"

@@ -1,8 +1,10 @@
 package com.cscorner.healsphere;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.VideoView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,11 +12,12 @@ import androidx.appcompat.app.AppCompatActivity;
 public class AI_assistant2 extends AppCompatActivity {
 
     private VideoView aurVideo;
+    private LinearLayout getStartedSection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ai_assistant2); // ✅ Correct layout file!
+        setContentView(R.layout.activity_ai_assistant2);
 
         // Fullscreen immersive mode
         getWindow().getDecorView().setSystemUiVisibility(
@@ -29,13 +32,23 @@ public class AI_assistant2 extends AppCompatActivity {
         // Bind the video view
         aurVideo = findViewById(R.id.auraVideo);
 
-        // Set and play aura background video
+        // Bind Get Started section
+        getStartedSection = findViewById(R.id.getStartedSection);
+
+        // Start background video
         Uri videoUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.aura);
         aurVideo.setVideoURI(videoUri);
         aurVideo.setOnPreparedListener(mp -> {
             mp.setLooping(true);
-            mp.setVolume(0f, 0f); // mute video
+            mp.setVolume(0f, 0f); // mute
             aurVideo.start();
+        });
+
+        // 👉 Set click listener on "Get Started"
+        getStartedSection.setOnClickListener(v -> {
+            Intent intent = new Intent(AI_assistant2.this, AI_assistant3.class);
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out); // optional
         });
     }
 

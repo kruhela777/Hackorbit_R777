@@ -48,7 +48,7 @@ public class AI_assistant extends AppCompatActivity {
             Intent intent = new Intent(AI_assistant.this, AI_assistant2.class);
             startActivity(intent);
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-        }, 1000); // 1000ms = 1s delay
+        }, 1500);
     }
 
     @Override

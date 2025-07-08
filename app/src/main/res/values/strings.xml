@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">HealSphere</string>
     <string name="mood_card">Mood Card</string>
+    <string name="logo_desc">Healsphere logo</string>
+    <string name="back_icon">Back button</string>
+    <string name="add_icon">Add icon</string>
+    <string name="upload_icon">Upload file</string>
+    <string name="mic_icon">Microphone icon</string>
+    <string name="gallery_icon">Gallery icon</string>
 
 </resources>
