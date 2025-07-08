@@ -13,7 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 public class AI_assistant3 extends AppCompatActivity {
 
     private VideoView aiVideoBackground;
-    private ImageView micButton, cancelButton;
+    private ImageView micButton, cancelButton, aiBigImage;
+    private TextView useKeyboard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +35,10 @@ public class AI_assistant3 extends AppCompatActivity {
         aiVideoBackground = findViewById(R.id.aiVideoBackground);
         micButton = findViewById(R.id.micButton);
         cancelButton = findViewById(R.id.cancelButton);
+        useKeyboard = findViewById(R.id.useKeyboard);
+        aiBigImage = findViewById(R.id.aiBigImage);
 
-        // Play the looping muted video background
+        // Background video setup
         Uri videoUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.aura1);
         aiVideoBackground.setVideoURI(videoUri);
         aiVideoBackground.setOnPreparedListener(mp -> {
@@ -44,12 +47,17 @@ public class AI_assistant3 extends AppCompatActivity {
             aiVideoBackground.start();
         });
 
-        // Optional: mic button action (to start voice input or next screen)
-        micButton.setOnClickListener(v -> {
-            // TODO: Implement voice recording or navigation
-        });
+        // Navigate to AI_assistant4 when any of the views are clicked
+        View.OnClickListener goToAssistant4 = v -> {
+            Intent intent = new Intent(AI_assistant3.this, AI_assistant4.class);
+            startActivity(intent);
+        };
 
-        // Cancel button action (e.g. go back)
+        micButton.setOnClickListener(goToAssistant4);
+        useKeyboard.setOnClickListener(goToAssistant4);
+        aiBigImage.setOnClickListener(goToAssistant4);
+
+        // Cancel button action
         cancelButton.setOnClickListener(v -> finish());
     }
 
