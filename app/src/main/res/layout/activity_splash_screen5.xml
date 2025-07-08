@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/splash5Layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:padding="2dp">
+
+
+    <ImageView
+        android:id="@+id/topGradient"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitXY"
+        android:layout_margin="0dp"
+        android:src="@drawable/shape_gradient_top_left" />
+
+    <!-- Bottom-Right Gradient Rectangle -->
+    <ImageView
+        android:id="@+id/bottomGradient"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:scaleType="fitXY"
+        android:layout_margin="0dp"
+        android:src="@drawable/shape_gradient_bottom_right" />
+
+
+    <ImageView
+        android:id="@+id/doctorGif"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/doctor" />
+
+
+    <!-- Next Button -->
+    <TextView
+        android:id="@+id/welcomeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/doctorGif"
+        android:layout_marginTop="56dp"
+        android:layout_marginStart="24dp"
+        android:text="WELCOME TO HEALSPHERE….."
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/taglineText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/welcomeText"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="24dp"
+        android:text="Smarter Health Starts Here"
+        android:textColor="#CCCCCC"
+        android:textSize="16sp" />
+
+
+
+    <ImageView
+        android:id="@+id/nextArrow"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/arrow"
+        android:padding="14dp" />
+</RelativeLayout>

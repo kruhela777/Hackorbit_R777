@@ -1,0 +1,82 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/splash7Layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient_purple_blue"
+    android:padding="24dp">
+
+    <!-- Chat GIF -->
+    <ImageView
+        android:id="@+id/chatGif"
+        android:layout_width="160dp"
+        android:layout_height="220dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="32dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/chat" />
+
+    <!-- Boy Image (Lifted further upward) -->
+    <ImageView
+        android:id="@+id/boyGif"
+        android:layout_width="200dp"
+        android:layout_height="300dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="58dp"
+        android:layout_marginBottom="200dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/speaking" />
+
+    <!-- Mic Icon (still aligned relative to boy) -->
+    <ImageView
+        android:id="@+id/micGif"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_alignStart="@id/boyGif"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="121dp"
+        android:layout_marginBottom="200dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/mic" />
+
+    <!-- Headline -->
+
+    <!-- Subtext -->
+
+    <!-- Next Arrow -->
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="141dp"
+        android:text="“ Talk, We’ll Listen.”"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/subText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titleText"
+        android:layout_marginTop="-140dp"
+        android:gravity="center"
+        android:text="Speak how you feel. Our AI\nchecks symptoms in real time."
+        android:textColor="#CCCCCC"
+        android:textSize="16sp" />
+
+    <ImageView
+        android:id="@+id/nextArrow"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/arrow"
+        android:padding="14dp" />
+</RelativeLayout>

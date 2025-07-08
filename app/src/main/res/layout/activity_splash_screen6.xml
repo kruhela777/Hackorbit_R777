@@ -1,0 +1,44 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/splash6Layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient_purple_blue"
+    android:padding="24dp">
+
+    <!-- Chat Bubbles GIF (Top Right) -->
+    <ImageView
+        android:id="@+id/chatGif"
+        android:layout_width="160dp"
+        android:layout_height="220dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="32dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/chat" />
+
+    <!-- Boy Image (Lifted further upward) -->
+    <ImageView
+        android:id="@+id/boyGif"
+        android:layout_width="200dp"
+        android:layout_height="300dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="58dp"
+        android:layout_marginBottom="200dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/speaking" />
+
+    <!-- Mic Icon (still aligned relative to boy) -->
+    <ImageView
+        android:id="@+id/micGif"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_alignStart="@id/boyGif"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="121dp"
+        android:layout_marginBottom="200dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/mic" />
+
+</RelativeLayout>
