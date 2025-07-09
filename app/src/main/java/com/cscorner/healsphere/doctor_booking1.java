@@ -30,8 +30,8 @@ public class doctor_booking1 extends AppCompatActivity {
 
     private void loadDummyDoctors() {
         doctorList.add(new DoctorModel("Dr. Kartik Verma", "Cardiologist", "₹1200/session", 4.8f, R.drawable.doctor1));
-//        doctorList.add(new DoctorModel("Dr. Neha Mehta", "Dermatologist", "₹900/session", 4.6f, R.drawable.doctor2));
-//        doctorList.add(new DoctorModel("Dr. Ramesh Singh", "Pulmonologist", "₹1100/session", 4.7f, R.drawable.doctor3));
+        doctorList.add(new DoctorModel("Dr. Vikas Mehta", "Dermatologist", "₹900/session", 4.6f, R.drawable.doctor2));
+        doctorList.add(new DoctorModel("Dr. Simran Kaur", "Pulmonologist", "₹1100/session", 4.7f, R.drawable.doctor3));
 //        doctorList.add(new DoctorModel("Dr. Ayesha Khan", "Neurologist", "₹1500/session", 4.9f, R.drawable.doctor4));
 //        doctorList.add(new DoctorModel("Dr. Pooja Sharma", "Ophthalmologist", "₹950/session", 4.5f, R.drawable.doctor5));
 //        doctorList.add(new DoctorModel("Dr. Anuj Patel", "Dentist", "₹800/session", 4.3f, R.drawable.doctor6));

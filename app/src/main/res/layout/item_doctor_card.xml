@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -8,49 +9,38 @@
     app:cardElevation="6dp"
     android:foreground="?attr/selectableItemBackground">
 
-
-<RelativeLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:background="@drawable/bg_doctor_gradient">
 
-        <!-- Doctor Image -->
-        <ImageView
-            android:id="@+id/imgDoctor"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:scaleType="centerCrop"
-            android:layout_alignParentStart="true"
-            android:src="@drawable/doctor1"
-            android:padding="4dp" />
-
         <!-- Like Button -->
         <ImageView
             android:id="@+id/ivLike"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
             android:src="@drawable/heart_outline"
             android:contentDescription="Like" />
 
-        <!-- Rating -->
-        <TextView
-            android:id="@+id/tvRating"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/imgDoctor"
-            android:layout_alignStart="@id/imgDoctor"
+        <!-- Doctor Image -->
+        <ImageView
+            android:id="@+id/imgDoctor"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:scaleType="centerCrop"
+            android:layout_alignParentStart="true"
             android:layout_marginTop="8dp"
-            android:text="★ 4.8"
-            android:textColor="#FFD700"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+            android:layout_below="@+id/ivLike"
+            android:src="@drawable/doctor1"
+            android:padding="4dp" />
 
         <!-- Doctor Info Block -->
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/imgDoctor"
             android:layout_alignTop="@id/imgDoctor"
@@ -60,7 +50,7 @@
                 android:id="@+id/tvSpecialty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cardiologist"
+                android:text="General Physician"
                 android:textColor="#e0f2f1"
                 android:textSize="14sp" />
 
@@ -70,27 +60,64 @@
                 android:layout_height="wrap_content"
                 android:text="Dr. Kartik Verma"
                 android:textStyle="bold"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textColor="@android:color/white" />
 
             <TextView
                 android:id="@+id/tvFee"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="₹1200/session"
+                android:text="₹200/session"
                 android:textColor="@android:color/white"
-                android:textSize="13sp" />
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tvRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="★ 4.8"
+                android:textColor="#FFD700"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_marginTop="6dp" />
         </LinearLayout>
 
-        <!-- Calendar Slot Container (dynamically filled in Java) -->
+        <!-- Slot Container Section -->
         <LinearLayout
-            android:id="@+id/layoutSlots"
-            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvRating"
-            android:layout_alignStart="@id/imgDoctor"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal">
+            android:layout_below="@+id/imgDoctor"
+            android:layout_marginTop="16dp"
+            android:padding="12dp">
+
+            <!-- Info row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Availability"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:gravity="start" />
+
+            </LinearLayout>
+
+            <!-- Slot Views Here -->
+            <LinearLayout
+                android:id="@+id/layoutSlots"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical" />
         </LinearLayout>
 
     </RelativeLayout>

@@ -7,9 +7,12 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -19,12 +22,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -33,10 +36,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-
-import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
-
 
 public class AI_assistant4 extends AppCompatActivity {
 
@@ -48,6 +47,7 @@ public class AI_assistant4 extends AppCompatActivity {
     private EditText chatInput;
     private TextView aiResponses;
     private ImageView uploadIcon, backButton, micIcon, galleryIcon;
+    private LinearLayout bookDoctorSuggestion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,11 +69,12 @@ public class AI_assistant4 extends AppCompatActivity {
         uploadIcon = findViewById(R.id.uploadIcon);
         backButton = findViewById(R.id.backButton);
         micIcon = findViewById(R.id.micIcon);
-        galleryIcon = findViewById(R.id.gallery); // Make sure this ID exists in XML
+        galleryIcon = findViewById(R.id.gallery);
+        bookDoctorSuggestion = findViewById(R.id.bookDoctorSuggestion);
 
         playLoopingVideo();
 
-        // Text input send
+        // Send text input
         uploadIcon.setOnClickListener(v -> {
             String userMessage = chatInput.getText().toString().trim();
             if (!userMessage.isEmpty()) {
@@ -84,13 +85,13 @@ public class AI_assistant4 extends AppCompatActivity {
             }
         });
 
-        // Back navigation
+        // Back button
         backButton.setOnClickListener(v -> {
             startActivity(new Intent(AI_assistant4.this, AI_assistant3.class));
             finish();
         });
 
-        // Mic input
+        // Microphone input
         micIcon.setOnClickListener(v -> {
             Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
             intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -109,6 +110,12 @@ public class AI_assistant4 extends AppCompatActivity {
             intent.setType("image/*");
             startActivityForResult(intent, REQUEST_IMAGE_PICK);
         });
+
+        // 👉 Doctor booking suggestion click
+        bookDoctorSuggestion.setOnClickListener(v -> {
+            Intent intent = new Intent(AI_assistant4.this, doctor_booking1.class);
+            startActivity(intent);
+        });
     }
 
     private void playLoopingVideo() {
@@ -121,23 +128,20 @@ public class AI_assistant4 extends AppCompatActivity {
         });
     }
 
-
     private void getAIResponse(String prompt) {
         aiResponses.setText("Thinking...");
         aiResponses.setMovementMethod(new ScrollingMovementMethod());
-        // Ensure scrolling works
 
         OkHttpClient client = new OkHttpClient.Builder()
-                .callTimeout(30, java.util.concurrent.TimeUnit.SECONDS)
-                .connectTimeout(15, java.util.concurrent.TimeUnit.SECONDS)
+                .callTimeout(30, TimeUnit.SECONDS)
+                .connectTimeout(15, TimeUnit.SECONDS)
                 .build();
 
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-
         JSONObject jsonBody = new JSONObject();
         try {
             jsonBody.put("message", prompt);
-            jsonBody.put("typing_duration", 6);  // You can customize this
+            jsonBody.put("typing_duration", 6);
             jsonBody.put("speech_clarity", "clear");
         } catch (Exception e) {
             aiResponses.setText("Failed to build request.");
@@ -146,19 +150,17 @@ public class AI_assistant4 extends AppCompatActivity {
         }
 
         RequestBody body = RequestBody.create(jsonBody.toString(), JSON);
-
         Request request = new Request.Builder()
-                .url("https://92827ec77cc1.ngrok-free.app/chat") // ✅ Update this every time ngrok restarts
+                .url("https://92827ec77cc1.ngrok-free.app/chat") // change if ngrok restarts
                 .post(body)
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                e.printStackTrace(); // Add this
+                e.printStackTrace();
                 runOnUiThread(() -> aiResponses.setText("❌ Failed: " + e.getMessage()));
             }
-
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
@@ -167,21 +169,16 @@ public class AI_assistant4 extends AppCompatActivity {
                     try {
                         JSONObject json = new JSONObject(responseBody);
                         String aiReply = json.getString("response");
-
                         runOnUiThread(() -> aiResponses.setText(aiReply));
                     } catch (Exception e) {
                         runOnUiThread(() -> aiResponses.setText("Error parsing response: " + e.getMessage()));
                     }
                 } else {
-                    runOnUiThread(() -> aiResponses.setText("❌ Server error: " + response.code() + " — " + responseBody));
+                    runOnUiThread(() -> aiResponses.setText("❌ Server error: " + response.code()));
                 }
             }
-
         });
     }
-
-
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -200,7 +197,6 @@ public class AI_assistant4 extends AppCompatActivity {
             Uri selectedImageUri = data.getData();
             if (selectedImageUri != null) {
                 Toast.makeText(this, "Image selected: " + selectedImageUri.toString(), Toast.LENGTH_SHORT).show();
-                // Optionally upload or display the image
             }
         }
     }

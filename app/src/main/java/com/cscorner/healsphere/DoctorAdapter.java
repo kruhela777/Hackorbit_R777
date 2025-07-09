@@ -1,6 +1,9 @@
 package com.cscorner.healsphere;
 
 import android.content.Context;
+import android.graphics.Typeface;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,13 +12,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.DoctorViewHolder> {
 
@@ -44,25 +47,50 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.DoctorView
         holder.tvRating.setText("★ " + doctor.getRating());
         holder.imgDoctor.setImageResource(doctor.getImageRes());
 
-        // Dynamic calendar slots for 7 days
+        // Clear old slots and add new ones
         holder.layoutSlots.removeAllViews();
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM");
+        SimpleDateFormat dayFormat = new SimpleDateFormat("EEE", Locale.ENGLISH);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("d", Locale.ENGLISH);
 
         for (int i = 0; i < 7; i++) {
+            // Create vertical slot container
+            LinearLayout slotContainer = new LinearLayout(context);
+            slotContainer.setOrientation(LinearLayout.VERTICAL);
+            slotContainer.setGravity(Gravity.CENTER);
+            slotContainer.setBackgroundResource(R.drawable.bg_slot_day);
+
+            // Convert dp to px
+            int sizeInDp = 48; // Reduced width
+            int sizeInPx = (int) TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP, sizeInDp, context.getResources().getDisplayMetrics());
+
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(sizeInPx, ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.setMargins(0, 0, 12, 0);
+            slotContainer.setLayoutParams(params);
+
+            // Day text
+            TextView dayView = new TextView(context);
+            dayView.setText(dayFormat.format(calendar.getTime()).toUpperCase());
+            dayView.setTextColor(ContextCompat.getColor(context, android.R.color.white));
+            dayView.setTextSize(10f);
+            dayView.setTypeface(null, Typeface.BOLD);
+            dayView.setGravity(Gravity.CENTER);
+
+            // Date text
             TextView dateView = new TextView(context);
-            dateView.setText(sdf.format(calendar.getTime()));
-            dateView.setTextColor(context.getResources().getColor(android.R.color.white));
-            dateView.setBackgroundResource(R.drawable.bg_slot_day);
-            dateView.setPadding(20, 10, 20, 10);
+            dateView.setText(dateFormat.format(calendar.getTime()));
+            dateView.setTextColor(ContextCompat.getColor(context, android.R.color.white));
+            dateView.setTextSize(14f);
+            dateView.setTypeface(null, Typeface.BOLD);
+            dateView.setGravity(Gravity.CENTER);
 
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT);
-            params.setMargins(0, 0, 16, 0);
-            dateView.setLayoutParams(params);
+            // Add views to slot
+            slotContainer.addView(dayView);
+            slotContainer.addView(dateView);
+            holder.layoutSlots.addView(slotContainer);
 
-            holder.layoutSlots.addView(dateView);
+            // Move to next day
             calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
     }
