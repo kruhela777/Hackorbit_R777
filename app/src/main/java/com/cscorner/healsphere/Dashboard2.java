@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -19,7 +20,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Dashboard2 extends AppCompatActivity {
@@ -45,7 +49,6 @@ public class Dashboard2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard2);
 
-        // Immersive fullscreen mode
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
                         View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
@@ -66,13 +69,37 @@ public class Dashboard2 extends AppCompatActivity {
             videoBackground.start();
         });
 
-        // Mood slider setup
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        scaleSelectedIcon(bottomNav, R.id.nav_home);
+
+        bottomNav.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            scaleSelectedIcon(bottomNav, itemId);
+
+            if (itemId == R.id.nav_home) {
+                return true;
+            }
+//            else if (itemId == R.id.nav_appointment) {
+//                startActivity(new Intent(this, AppointmentActivity.class));
+//                return true;
+//            }
+            else if (itemId == R.id.nav_mood) {
+                startActivity(new Intent(this, MoodTrackerActivity.class));
+                return true;
+            }
+//            else if (itemId == R.id.nav_profile) {
+//                startActivity(new Intent(this, ProfileActivity.class));
+//                return true;
+//            }
+            return false;
+        });
+
         moodSlider = findViewById(R.id.moodSlider);
         LinearLayoutManager moodLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         moodSlider.setLayoutManager(moodLayoutManager);
 
         MoodAdapter moodAdapter = new MoodAdapter(moodImages, selectedMoodResId -> {
-            preferences.edit().putInt("todayMood", selectedMoodResId).apply();
+            saveMoodToPrefs(selectedMoodResId);
             Toast.makeText(this, "Mood saved!", Toast.LENGTH_SHORT).show();
         });
         moodSlider.setAdapter(moodAdapter);
@@ -109,7 +136,6 @@ public class Dashboard2 extends AppCompatActivity {
             }
         });
 
-        // Medicine Section
         medicineRecycler = findViewById(R.id.medicineRecycler);
         medicineList = new ArrayList<>();
         medicineAdapter = new MedicineAdapter(medicineList);
@@ -124,7 +150,6 @@ public class Dashboard2 extends AppCompatActivity {
                 Toast.makeText(this, "Book appointment clicked", Toast.LENGTH_SHORT).show()
         );
 
-        // Bottom circular images
         circleImage1 = findViewById(R.id.circleImage1);
         circleImage2 = findViewById(R.id.circleImage2);
 
@@ -132,9 +157,23 @@ public class Dashboard2 extends AppCompatActivity {
         circleImage2.setImageResource(R.drawable.scanner);
 
         circleImage1.setOnClickListener(v -> {
-            Intent intent = new Intent(Dashboard2.this, AI_assistant.class); // or VoiceScreen.class if renamed
+            Intent intent = new Intent(Dashboard2.this, AI_assistant.class);
             startActivity(intent);
         });
+    }
+
+    private void scaleSelectedIcon(BottomNavigationView navView, int selectedItemId) {
+        for (int i = 0; i < navView.getMenu().size(); i++) {
+            MenuItem item = navView.getMenu().getItem(i);
+            View view = navView.findViewById(item.getItemId());
+            if (view != null) {
+                if (item.getItemId() == selectedItemId) {
+                    view.animate().scaleX(1.3f).scaleY(1.3f).setDuration(150).start();
+                } else {
+                    view.animate().scaleX(1f).scaleY(1f).setDuration(150).start();
+                }
+            }
+        }
     }
 
     private void showAddMedicineDialog() {
@@ -159,6 +198,25 @@ public class Dashboard2 extends AppCompatActivity {
                 })
                 .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
                 .show();
+    }
+
+    private void saveMoodToPrefs(int moodResId) {
+        SharedPreferences moodPrefs = getSharedPreferences("MoodData", MODE_PRIVATE);
+        SharedPreferences.Editor editor = moodPrefs.edit();
+
+        long timestamp = System.currentTimeMillis();
+        int moodValue = convertResToMoodValue(moodResId);
+        editor.putInt(String.valueOf(timestamp), moodValue);
+        editor.apply();
+    }
+
+    private int convertResToMoodValue(int resId) {
+        if (resId == R.drawable.mood_very_happy_card) return 4;
+        else if (resId == R.drawable.mood_happy_card) return 3;
+        else if (resId == R.drawable.mood_neutral_card) return 2;
+        else if (resId == R.drawable.mood_sad_card) return 1;
+        else if (resId == R.drawable.mood_very_sad_card) return 0;
+        else return 2;
     }
 
     @Override

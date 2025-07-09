@@ -261,7 +261,7 @@
 
         <!-- Book Button -->
         <TextView
-            android:id="@+id/btnBookDoctor"
+            android:id="@+id/btnPayNow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_button_primary"

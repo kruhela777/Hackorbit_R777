@@ -19,8 +19,13 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".LoginActivity"
+            android:name=".MoodTrackerActivity"
             android:exported="true">
+        </activity>
+        <activity
+            android:name=".PaymentActivity"
+            android:exported="true">
+
         </activity>
         <activity
             android:name=".doctor_booking3"

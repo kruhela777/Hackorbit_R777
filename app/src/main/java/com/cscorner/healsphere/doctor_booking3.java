@@ -11,6 +11,7 @@ public class doctor_booking3 extends AppCompatActivity {
     ImageView btnBack, doctorImage;
     TextView doctorName, doctorSpecialty, doctorRating, doctorFee;
     TextView dateValue, timeValue, patientName, patientGender, patientAge;
+    TextView btnBookDoctor; // This was missing in your code
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,38 +32,67 @@ public class doctor_booking3 extends AppCompatActivity {
         patientGender = findViewById(R.id.textPatientGender);
         patientAge = findViewById(R.id.textPatientAge);
 
+        btnBookDoctor = findViewById(R.id.btnPayNow); // Assuming Pay Now is your action button
+
         // Get Intent Data
         Intent intent = getIntent();
-        doctorName.setText(intent.getStringExtra("name"));
-        doctorSpecialty.setText(intent.getStringExtra("specialty"));
-        doctorFee.setText(intent.getStringExtra("fee"));
-        doctorRating.setText("★ " + intent.getFloatExtra("rating", 0f));
-        doctorImage.setImageResource(intent.getIntExtra("imageResId", R.drawable.doctor1));
+        String name = intent.getStringExtra("name");
+        String specialty = intent.getStringExtra("specialty");
+        String fee = intent.getStringExtra("fee");
+        float rating = intent.getFloatExtra("rating", 0f);
+        int imageResId = intent.getIntExtra("imageResId", R.drawable.doctor1);
 
-        dateValue.setText(intent.getStringExtra("appointment_date"));
-        timeValue.setText(intent.getStringExtra("appointment_time"));
-        patientName.setText(intent.getStringExtra("patient_name"));
-        patientGender.setText(intent.getStringExtra("patient_gender"));
-        patientAge.setText(String.valueOf(intent.getIntExtra("patient_age", 0)));
+        String appointmentDate = intent.getStringExtra("appointment_date");
+        String appointmentTime = intent.getStringExtra("appointment_time");
+        String patientNameStr = intent.getStringExtra("patient_name");
+        String patientGenderStr = intent.getStringExtra("patient_gender");
+        int patientAgeVal = intent.getIntExtra("patient_age", 0);
+
+        // Set data to views
+        doctorName.setText(name);
+        doctorSpecialty.setText(specialty);
+        doctorFee.setText(fee);
+        doctorRating.setText("★ " + rating);
+        doctorImage.setImageResource(imageResId);
+
+        dateValue.setText(appointmentDate);
+        timeValue.setText(appointmentTime);
+        patientName.setText(patientNameStr);
+        patientGender.setText(patientGenderStr);
+        patientAge.setText(String.valueOf(patientAgeVal));
+
+        btnBookDoctor.setOnClickListener(v -> {
+            Intent payIntent = new Intent(doctor_booking3.this, PaymentActivity.class);
+            payIntent.putExtra("name", name);
+            payIntent.putExtra("specialty", specialty);
+            payIntent.putExtra("fee", fee);
+            payIntent.putExtra("rating", rating);
+            payIntent.putExtra("imageResId", imageResId);
+            payIntent.putExtra("appointment_date", appointmentDate);
+            payIntent.putExtra("appointment_time", appointmentTime);
+            payIntent.putExtra("patient_name", patientNameStr);
+            payIntent.putExtra("patient_gender", patientGenderStr);
+            payIntent.putExtra("patient_age", patientAgeVal);
+            startActivity(payIntent);
+        });
 
         // Back Button
-//        btnBack.setOnClickListener(v -> finish());
-//
-//        btnBookDoctor.setOnClickListener(v -> {
-//            Intent intent = new Intent(this, PaymentActivity.class);
-//            intent.putExtra("name", name);
-//            intent.putExtra("specialty", specialty);
-//            intent.putExtra("fee", fee);
-//            intent.putExtra("rating", rating);
-//            intent.putExtra("imageResId", imageResId);
-//            // Add static data for now, replace with user input later
-//            intent.putExtra("appointment_date", "7 July 2025");
-//            intent.putExtra("appointment_time", "11:30am");
-//            intent.putExtra("patient_name", "Vibhu Ruhela");
-//            intent.putExtra("patient_gender", "Male");
-//            intent.putExtra("patient_age", 22);
-//            startActivity(intent);
-//        });
+        btnBack.setOnClickListener(v -> finish());
 
+        // Book Doctor button action
+        btnBookDoctor.setOnClickListener(v -> {
+            Intent payIntent = new Intent(doctor_booking3.this, doctor_booking2.class);
+            payIntent.putExtra("name", name);
+            payIntent.putExtra("specialty", specialty);
+            payIntent.putExtra("fee", fee);
+            payIntent.putExtra("rating", rating);
+            payIntent.putExtra("imageResId", imageResId);
+            payIntent.putExtra("appointment_date", appointmentDate);
+            payIntent.putExtra("appointment_time", appointmentTime);
+            payIntent.putExtra("patient_name", patientNameStr);
+            payIntent.putExtra("patient_gender", patientGenderStr);
+            payIntent.putExtra("patient_age", patientAgeVal);
+            startActivity(payIntent);
+        });
     }
 }

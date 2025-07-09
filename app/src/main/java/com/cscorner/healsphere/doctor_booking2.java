@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Button;  // if you're using Button
 import androidx.appcompat.app.AppCompatActivity;
 
 public class doctor_booking2 extends AppCompatActivity {
 
     ImageView doctorImage, btnBack;
     TextView doctorName, doctorSpecialty, doctorFee, doctorRating;
+    TextView btnPayNow; // If using TextView as button
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +24,8 @@ public class doctor_booking2 extends AppCompatActivity {
         doctorName = findViewById(R.id.doctorName);
         doctorSpecialty = findViewById(R.id.doctorSpecialty);
         doctorFee = findViewById(R.id.doctorFee);
-        doctorRating = findViewById(R.id.doctorRating); // Ensure this ID exists in XML
+        doctorRating = findViewById(R.id.doctorRating);
+        btnPayNow = findViewById(R.id.btnPayNow); // Make sure this ID exists
 
         // Get intent data
         Intent intent = getIntent();
@@ -37,15 +40,24 @@ public class doctor_booking2 extends AppCompatActivity {
         if (specialty != null) doctorSpecialty.setText(specialty);
         if (fee != null) doctorFee.setText(fee);
         doctorImage.setImageResource(imageResId);
-
-        if (doctorRating != null) {
-            doctorRating.setText("★ " + rating);
-        }
+        if (doctorRating != null) doctorRating.setText("★ " + rating);
 
         // Back button
         btnBack.setOnClickListener(v -> {
             startActivity(new Intent(doctor_booking2.this, doctor_booking1.class));
             finish();
+        });
+
+        // Book doctor / Pay Now button
+        btnPayNow.setOnClickListener(v -> {
+            Intent bookIntent = new Intent(doctor_booking2.this, doctor_booking3.class);
+            // You can pass doctor info here too, if needed:
+            bookIntent.putExtra("name", name);
+            bookIntent.putExtra("specialty", specialty);
+            bookIntent.putExtra("fee", fee);
+            bookIntent.putExtra("rating", rating);
+            bookIntent.putExtra("imageResId", imageResId);
+            startActivity(bookIntent);
         });
     }
 }
