@@ -175,6 +175,7 @@
         </LinearLayout>
 
         <!-- Patient Details -->
+        <!-- Patient Details -->
         <TextView
             android:text="Patient Details"
             android:textStyle="bold"
@@ -191,12 +192,14 @@
             android:background="#003549"
             android:padding="12dp">
 
+            <!-- Name -->
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:gravity="center_vertical">
+
                 <ImageView
                     android:layout_width="18dp"
                     android:layout_height="18dp"
@@ -205,18 +208,27 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="Name:"
+                    android:textColor="#ffffff"
+                    android:textSize="14sp"
+                    android:layout_marginEnd="4dp"/>
+                <TextView
                     android:id="@+id/textPatientName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="Vibhu Ruhela"
                     android:textColor="#ffffff"
                     android:textSize="14sp"/>
             </LinearLayout>
 
+            <!-- Gender -->
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:gravity="center_vertical">
+
                 <ImageView
                     android:layout_width="18dp"
                     android:layout_height="18dp"
@@ -225,17 +237,26 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="Gender:"
+                    android:textColor="#ffffff"
+                    android:textSize="14sp"
+                    android:layout_marginEnd="4dp"/>
+                <TextView
                     android:id="@+id/textPatientGender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="Male"
                     android:textColor="#ffffff"
                     android:textSize="14sp"/>
             </LinearLayout>
 
+            <!-- Age -->
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical">
+
                 <ImageView
                     android:layout_width="18dp"
                     android:layout_height="18dp"
@@ -244,12 +265,20 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="Age:"
+                    android:textColor="#ffffff"
+                    android:textSize="14sp"
+                    android:layout_marginEnd="4dp"/>
+                <TextView
                     android:id="@+id/textPatientAge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="22"
                     android:textColor="#ffffff"
                     android:textSize="14sp"/>
             </LinearLayout>
         </LinearLayout>
+
 
         <!-- Pay Now Button -->
         <TextView

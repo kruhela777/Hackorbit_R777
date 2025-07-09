@@ -1,5 +1,7 @@
 plugins {
-    alias(libs.plugins.android.application)
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android") version "1.8.10"
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -25,33 +27,42 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
 }
 
 dependencies {
-    implementation(libs.appcompat)
-    implementation(libs.material)
-    implementation(libs.activity)
-    implementation(libs.constraintlayout)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.ext.junit)
-    androidTestImplementation(libs.espresso.core)
-    implementation(libs.glide)
-    annotationProcessor(libs.glideCompiler)
-
-    // ✅ Use string notation for these manual dependencies
-    implementation("androidx.recyclerview:recyclerview:1.3.2")
+    // AndroidX + Material
     implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation ("androidx.cardview:cardview:1.0.0")
-    implementation ("com.android.volley:volley:1.2.1")
-    implementation ("com.squareup.okhttp3:okhttp:4.9.3")
-    implementation ("org.json:json:20210307")
-    implementation ("androidx.core:core-ktx:1.10.1")
+    implementation("com.google.android.material:material:1.9.0")
+    implementation("androidx.activity:activity:1.7.2")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("androidx.core:core-ktx:1.10.1")
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
+    implementation("androidx.cardview:cardview:1.0.0")
 
+    // Networking & JSON
+    implementation("com.android.volley:volley:1.2.1")
+    implementation("com.squareup.okhttp3:okhttp:4.9.3")
+    implementation("org.json:json:20210307")
 
+    // Glide
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
 
+    // Google Sign-In
+    implementation("com.google.android.gms:play-services-auth:21.0.0")
 
+    // Firebase with BoM
+    implementation(platform("com.google.firebase:firebase-bom:32.2.3"))
+    implementation("com.google.firebase:firebase-auth")
+
+    // Testing
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }

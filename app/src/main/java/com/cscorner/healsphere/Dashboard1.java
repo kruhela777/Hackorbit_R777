@@ -64,4 +64,5 @@ public class Dashboard1 extends AppCompatActivity {
         videoBackground.pause();
         super.onPause();
     }
+
 }

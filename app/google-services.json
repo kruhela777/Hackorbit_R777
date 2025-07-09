@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "270619181842",
+    "project_id": "healsphere-3ec6f",
+    "storage_bucket": "healsphere-3ec6f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:270619181842:android:0409dc7c2a59a0156f69cb",
+        "android_client_info": {
+          "package_name": "com.cscorner.healsphere"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "270619181842-a7pf6v728s367b4hoc1rvnskmb5s2f2g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cscorner.healsphere",
+            "certificate_hash": "16d432a791c461f3c821e02062a0cf6f3b9c70d0"
+          }
+        },
+        {
+          "client_id": "270619181842-5do4um8fm5fa0da5a40lhh3ik4k79b97.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVJ8Cdl5HGvISyywkqT7Gv4Y4Z8_50R88"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "270619181842-5do4um8fm5fa0da5a40lhh3ik4k79b97.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

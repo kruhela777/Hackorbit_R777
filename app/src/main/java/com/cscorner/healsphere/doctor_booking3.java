@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class PaymentActivity extends AppCompatActivity {
+public class doctor_booking3 extends AppCompatActivity {
 
     ImageView btnBack, doctorImage;
     TextView doctorName, doctorSpecialty, doctorRating, doctorFee;
@@ -15,7 +15,7 @@ public class PaymentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_payment);
+        setContentView(R.layout.activity_doctor_booking3);
 
         // Bind Views
         btnBack = findViewById(R.id.btnBack);
@@ -46,23 +46,23 @@ public class PaymentActivity extends AppCompatActivity {
         patientAge.setText(String.valueOf(intent.getIntExtra("patient_age", 0)));
 
         // Back Button
-        btnBack.setOnClickListener(v -> finish());
-
-        btnBookDoctor.setOnClickListener(v -> {
-            Intent intent = new Intent(this, PaymentActivity.class);
-            intent.putExtra("name", name);
-            intent.putExtra("specialty", specialty);
-            intent.putExtra("fee", fee);
-            intent.putExtra("rating", rating);
-            intent.putExtra("imageResId", imageResId);
-            // Add static data for now, replace with user input later
-            intent.putExtra("appointment_date", "7 July 2025");
-            intent.putExtra("appointment_time", "11:30am");
-            intent.putExtra("patient_name", "Vibhu Ruhela");
-            intent.putExtra("patient_gender", "Male");
-            intent.putExtra("patient_age", 22);
-            startActivity(intent);
-        });
+//        btnBack.setOnClickListener(v -> finish());
+//
+//        btnBookDoctor.setOnClickListener(v -> {
+//            Intent intent = new Intent(this, PaymentActivity.class);
+//            intent.putExtra("name", name);
+//            intent.putExtra("specialty", specialty);
+//            intent.putExtra("fee", fee);
+//            intent.putExtra("rating", rating);
+//            intent.putExtra("imageResId", imageResId);
+//            // Add static data for now, replace with user input later
+//            intent.putExtra("appointment_date", "7 July 2025");
+//            intent.putExtra("appointment_time", "11:30am");
+//            intent.putExtra("patient_name", "Vibhu Ruhela");
+//            intent.putExtra("patient_gender", "Male");
+//            intent.putExtra("patient_age", 22);
+//            startActivity(intent);
+//        });
 
     }
 }
