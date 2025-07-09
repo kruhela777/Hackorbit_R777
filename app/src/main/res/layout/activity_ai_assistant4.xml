@@ -79,14 +79,25 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <TextView
-                android:id="@+id/aiResponses"
-                android:layout_width="wrap_content"
+            <ScrollView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="AI responses"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_weight="1"
+                android:fillViewport="true"
+                android:overScrollMode="ifContentScrolls">
+
+                <TextView
+                    android:id="@+id/aiResponses"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="10"
+                    android:textSize="16sp"
+                    android:padding="8dp"
+                    android:textColor="#FFFFFF" />
+            </ScrollView>
+
+
+
         </LinearLayout>
 
         <!-- Bottom Input Section -->

@@ -34,6 +34,10 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
+
+
 public class AI_assistant4 extends AppCompatActivity {
 
     private static final int REQUEST_CODE_SPEECH_INPUT = 100;
@@ -117,65 +121,67 @@ public class AI_assistant4 extends AppCompatActivity {
         });
     }
 
+
     private void getAIResponse(String prompt) {
         aiResponses.setText("Thinking...");
+        aiResponses.setMovementMethod(new ScrollingMovementMethod());
+        // Ensure scrolling works
 
-        OkHttpClient client = new OkHttpClient();
+        OkHttpClient client = new OkHttpClient.Builder()
+                .callTimeout(30, java.util.concurrent.TimeUnit.SECONDS)
+                .connectTimeout(15, java.util.concurrent.TimeUnit.SECONDS)
+                .build();
 
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
         JSONObject jsonBody = new JSONObject();
         try {
-            jsonBody.put("model", "gpt-3.5-turbo");
-
-            JSONArray messages = new JSONArray();
-            JSONObject userMessage = new JSONObject();
-            userMessage.put("role", "user");
-            userMessage.put("content", prompt);
-            messages.put(userMessage);
-
-            jsonBody.put("messages", messages);
+            jsonBody.put("message", prompt);
+            jsonBody.put("typing_duration", 6);  // You can customize this
+            jsonBody.put("speech_clarity", "clear");
         } catch (Exception e) {
-            aiResponses.setText("Error preparing AI request.");
+            aiResponses.setText("Failed to build request.");
+            Log.e("AI_DEBUG", "JSON build failed: " + e.getMessage());
             return;
         }
 
         RequestBody body = RequestBody.create(jsonBody.toString(), JSON);
 
         Request request = new Request.Builder()
-                .url("https://api.openai.com/v1/chat/completions")
+                .url("https://92827ec77cc1.ngrok-free.app/chat") // ✅ Update this every time ngrok restarts
                 .post(body)
-                .addHeader("Authorization", "Bearer YOUR_API_KEY") // 🔁 Replace with your API key
-                .addHeader("Content-Type", "application/json")
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                runOnUiThread(() -> aiResponses.setText("Failed to connect to AI."));
+                e.printStackTrace(); // Add this
+                runOnUiThread(() -> aiResponses.setText("❌ Failed: " + e.getMessage()));
             }
+
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                String responseBody = response.body().string();
                 if (response.isSuccessful()) {
                     try {
-                        String resStr = response.body().string();
-                        JSONObject json = new JSONObject(resStr);
-                        String aiReply = json.getJSONArray("choices")
-                                .getJSONObject(0)
-                                .getJSONObject("message")
-                                .getString("content");
+                        JSONObject json = new JSONObject(responseBody);
+                        String aiReply = json.getString("response");
 
-                        runOnUiThread(() -> aiResponses.setText(aiReply.trim()));
+                        runOnUiThread(() -> aiResponses.setText(aiReply));
                     } catch (Exception e) {
-                        runOnUiThread(() -> aiResponses.setText("Error parsing AI response."));
+                        runOnUiThread(() -> aiResponses.setText("Error parsing response: " + e.getMessage()));
                     }
                 } else {
-                    runOnUiThread(() -> aiResponses.setText("API Error: " + response.message()));
+                    runOnUiThread(() -> aiResponses.setText("❌ Server error: " + response.code() + " — " + responseBody));
                 }
             }
+
         });
     }
+
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

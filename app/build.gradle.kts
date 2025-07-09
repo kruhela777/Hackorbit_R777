@@ -49,6 +49,9 @@ dependencies {
     implementation ("com.android.volley:volley:1.2.1")
     implementation ("com.squareup.okhttp3:okhttp:4.9.3")
     implementation ("org.json:json:20210307")
+    implementation ("androidx.core:core-ktx:1.10.1")
+
+
 
 
 }
