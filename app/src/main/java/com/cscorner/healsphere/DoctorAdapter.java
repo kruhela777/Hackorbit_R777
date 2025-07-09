@@ -1,6 +1,7 @@
 package com.cscorner.healsphere;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -45,23 +46,32 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.DoctorView
         holder.tvSpecialty.setText(doctor.getSpecialty());
         holder.tvFee.setText(doctor.getFee());
         holder.tvRating.setText("★ " + doctor.getRating());
-        holder.imgDoctor.setImageResource(doctor.getImageRes());
+        holder.imgDoctor.setImageResource(doctor.getImageResId());
 
-        // Clear old slots and add new ones
+        // Set click listener to navigate to booking_doctor2
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, doctor_booking2.class);
+            intent.putExtra("name", doctor.getName());
+            intent.putExtra("specialty", doctor.getSpecialty());
+            intent.putExtra("fee", doctor.getFee());
+            intent.putExtra("rating", doctor.getRating());
+            intent.putExtra("imageResId", doctor.getImageResId());
+            context.startActivity(intent);
+        });
+
+        // Load slot views (7 days)
         holder.layoutSlots.removeAllViews();
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dayFormat = new SimpleDateFormat("EEE", Locale.ENGLISH);
         SimpleDateFormat dateFormat = new SimpleDateFormat("d", Locale.ENGLISH);
 
         for (int i = 0; i < 7; i++) {
-            // Create vertical slot container
             LinearLayout slotContainer = new LinearLayout(context);
             slotContainer.setOrientation(LinearLayout.VERTICAL);
             slotContainer.setGravity(Gravity.CENTER);
             slotContainer.setBackgroundResource(R.drawable.bg_slot_day);
 
-            // Convert dp to px
-            int sizeInDp = 48; // Reduced width
+            int sizeInDp = 48;
             int sizeInPx = (int) TypedValue.applyDimension(
                     TypedValue.COMPLEX_UNIT_DIP, sizeInDp, context.getResources().getDisplayMetrics());
 
@@ -69,7 +79,6 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.DoctorView
             params.setMargins(0, 0, 12, 0);
             slotContainer.setLayoutParams(params);
 
-            // Day text
             TextView dayView = new TextView(context);
             dayView.setText(dayFormat.format(calendar.getTime()).toUpperCase());
             dayView.setTextColor(ContextCompat.getColor(context, android.R.color.white));
@@ -77,7 +86,6 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.DoctorView
             dayView.setTypeface(null, Typeface.BOLD);
             dayView.setGravity(Gravity.CENTER);
 
-            // Date text
             TextView dateView = new TextView(context);
             dateView.setText(dateFormat.format(calendar.getTime()));
             dateView.setTextColor(ContextCompat.getColor(context, android.R.color.white));
@@ -85,12 +93,10 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.DoctorView
             dateView.setTypeface(null, Typeface.BOLD);
             dateView.setGravity(Gravity.CENTER);
 
-            // Add views to slot
             slotContainer.addView(dayView);
             slotContainer.addView(dateView);
             holder.layoutSlots.addView(slotContainer);
 
-            // Move to next day
             calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
     }
@@ -100,7 +106,7 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.DoctorView
         return doctorList.size();
     }
 
-    public class DoctorViewHolder extends RecyclerView.ViewHolder {
+    public static class DoctorViewHolder extends RecyclerView.ViewHolder {
 
         ImageView imgDoctor, ivLike;
         TextView tvName, tvSpecialty, tvFee, tvRating;

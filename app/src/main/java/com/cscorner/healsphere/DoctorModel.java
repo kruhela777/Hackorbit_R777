@@ -6,14 +6,14 @@ public class DoctorModel {
     private String specialty;
     private String fee;
     private float rating;
-    private int imageRes;
+    private int imageResId;
 
-    public DoctorModel(String name, String specialty, String fee, float rating, int imageRes) {
+    public DoctorModel(String name, String specialty, String fee, float rating, int imageResId) {
         this.name = name;
         this.specialty = specialty;
         this.fee = fee;
         this.rating = rating;
-        this.imageRes = imageRes;
+        this.imageResId = imageResId;
     }
 
     public String getName() {
@@ -32,7 +32,7 @@ public class DoctorModel {
         return rating;
     }
 
-    public int getImageRes() {
-        return imageRes;
+    public int getImageResId() {
+        return imageResId;
     }
 }
